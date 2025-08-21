@@ -35,6 +35,9 @@ let output = document.querySelector(".output");
 function clearOutput() {
     output.textContent = "0";
     outputValue = "";
+    number1 = undefined;
+    number2 = undefined;
+    operateWith = undefined;
 }
 
  let clear = document.querySelector(".clear");
