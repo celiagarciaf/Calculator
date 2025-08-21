@@ -29,3 +29,13 @@ function operate(operator, number1, number2){
         }
     }
 }
+
+let output = document.querySelector(".output");
+
+function clearOutput() {
+    output.textContent = "";
+    outputValue = "";
+}
+
+ let clear = document.querySelector(".clear");
+clear.addEventListener("click", clearOutput)
