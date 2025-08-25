@@ -62,12 +62,19 @@ let operateWith;
 let operators = document.querySelectorAll(".operator");
 operators.forEach(op => {
     op.addEventListener("click", () => {
+if (number1 !== undefined && operateWith !== undefined){
+    number2= parseFloat(outputValue);
+    let currentResult = operate(operateWith,number1,number2);
+    output.textContent = currentResult;
+    outputValue = currentResult;
+} else {
         number1 = parseFloat(outputValue);
         operateWith = op.textContent;
         outputValue = "";
         output.textContent = "";
-    })
-})
+    }    
+});
+});
 
 let result = document.querySelector(".equal");
 result.addEventListener("click", () => {
