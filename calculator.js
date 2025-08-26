@@ -1,19 +1,15 @@
 function add(number1, number2){
     return number1 + number2;
 }
-
 function subtract(number1, number2){
     return number1 - number2;
 }
-
 function multiply(number1, number2){
     return number1 * number2;
 }
-
 function divide(number1, number2){
     return number1/number2;
 }
-
 function roundNumber(result){
     return Math.round(result * 1000) / 1000;
 }
@@ -35,8 +31,12 @@ function operate(operator, number1, number2){
 }
 
 let output = document.querySelector(".output");
-
 let outputValue = "";
+let number1;
+let number2;
+let operateWith;
+let number2Last;
+let calculated = false; 
 
 function clearOutput() {
     output.textContent = "0";
@@ -44,50 +44,57 @@ function clearOutput() {
     number1 = undefined;
     number2 = undefined;
     operateWith = undefined;
+    number2Last = undefined;
+    justCalculated = false;
 }
 
- let clear = document.querySelector(".clear");
-clear.addEventListener("click", clearOutput)
-
+let clear = document.querySelector(".clear");
+clear.addEventListener("click", clearOutput);
 
 let numbers = document.querySelectorAll(".number");
 numbers.forEach(number => {
     number.addEventListener("click", () => {
+        if (calculated) { 
+            outputValue = "";
+            justCalculated = false;
+        }
         outputValue += number.textContent;
         output.textContent = outputValue;
-    })
-})
-
-
-let number1;
-let number2;
-let operateWith;
-
+    });
+});
 
 let operators = document.querySelectorAll(".operator");
 operators.forEach(op => {
     op.addEventListener("click", () => {
-if (number1 !== undefined && operateWith && outputValue !== ""){
-    number2= parseFloat(outputValue);
-    let currentResult = operate(operateWith,number1,number2);
-    output.textContent = currentResult;
-    number1 = currentResult;
-    outputValue = "";
-} else {
-        number1 = parseFloat(outputValue);
-        outputValue = "";
-    }    
-    operateWith = op.textContent;
-});
+        if (number1 !== undefined && operateWith && outputValue !== ""){
+            number2 = parseFloat(outputValue);
+            let currentResult = operate(operateWith, number1, number2);
+            output.textContent = currentResult;
+            number1 = currentResult;
+            outputValue = "";
+        } else {
+            number1 = parseFloat(outputValue);
+            outputValue = "";
+        }    
+        operateWith = op.textContent;
+        calculated = false; 
+    });
 });
 
 let result = document.querySelector(".equal");
 result.addEventListener("click", () => {
-    number2 = parseFloat(outputValue)
+    if (outputValue !== "") {
+        number2 = parseFloat(outputValue);
+        number2Last = number2; 
+    } else if (number2Last !== undefined) {
+        number2 = number2Last; 
+    } else {
+        return; 
+    }
+
     let finalResult = operate(operateWith, number1, number2);
     output.textContent = finalResult;
-    outputValue = finalResult; 
+    outputValue = finalResult.toString(); 
     number1 = finalResult;
-})
-
-
+    calculated = true; 
+});
