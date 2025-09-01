@@ -64,26 +64,25 @@ numbers.forEach(number => {
     });
 });
 
-
 let operators = document.querySelectorAll(".operator");
 operators.forEach(op => {
     op.addEventListener("click", () => {
-        if (number1 !== undefined && operateWith && outputValue !== ""){
+        if (number1 !== undefined && operateWith && outputValue !== "" && !calculated) {
             number2 = parseFloat(outputValue);
             let currentResult = operate(operateWith, number1, number2);
             output.textContent = currentResult;
             number1 = currentResult;
             outputValue = "";
         } else {
-            number1 = parseFloat(outputValue);
+            number1 = parseFloat(outputValue) || number1;
             outputValue = "";
-        }    
+        }
+
         operateWith = op.textContent;
-        calculated = false;
+        calculated = false; 
     });
 });
 
-// 🔹 Igual
 let result = document.querySelector(".equal");
 result.addEventListener("click", () => {
     if (!operateWith) return; 
