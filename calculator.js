@@ -55,14 +55,17 @@ let numbers = document.querySelectorAll(".number");
 numbers.forEach(number => {
     number.addEventListener("click", () => {
         if (calculated) { 
-
             outputValue = "";
             calculated = false;
         }
+
+        if (number.textContent === "." && outputValue.includes(".")) return;
+
         outputValue += number.textContent;
         output.textContent = outputValue;
     });
 });
+
 
 let operators = document.querySelectorAll(".operator");
 operators.forEach(op => {
