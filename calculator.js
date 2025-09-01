@@ -23,7 +23,7 @@ function operate(operator, number1, number2){
         return roundNumber(multiply(number1, number2));
     } else {
         if(number2 == 0){
-            return "No se puede dividir entre 0."
+            return "No se puede dividir entre 0.";
         } else {
             return roundNumber(divide(number1, number2));
         }
@@ -45,7 +45,7 @@ function clearOutput() {
     number2 = undefined;
     operateWith = undefined;
     number2Last = undefined;
-    justCalculated = false;
+    calculated = false;
 }
 
 let clear = document.querySelector(".clear");
@@ -55,13 +55,15 @@ let numbers = document.querySelectorAll(".number");
 numbers.forEach(number => {
     number.addEventListener("click", () => {
         if (calculated) { 
+
             outputValue = "";
-            justCalculated = false;
+            calculated = false;
         }
         outputValue += number.textContent;
         output.textContent = outputValue;
     });
 });
+
 
 let operators = document.querySelectorAll(".operator");
 operators.forEach(op => {
@@ -77,12 +79,15 @@ operators.forEach(op => {
             outputValue = "";
         }    
         operateWith = op.textContent;
-        calculated = false; 
+        calculated = false;
     });
 });
 
+// 🔹 Igual
 let result = document.querySelector(".equal");
 result.addEventListener("click", () => {
+    if (!operateWith) return; 
+
     if (outputValue !== "") {
         number2 = parseFloat(outputValue);
         number2Last = number2; 
